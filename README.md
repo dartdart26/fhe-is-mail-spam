@@ -42,6 +42,22 @@ bazelisk run //transpiler/examples/is_mail_spam:is_mail_spam_interpreted_tfhe_te
 [Client] Mail is spam!
 ```
 
+# Spam Strings
+Spam strings are strings that we look for in emails. If an email contains one of them, the email is
+classified as spam. The [spam.txt](is_mail_spam/data/spam.txt) file contains one entry per line. The
+new line character is `\n`.
+
+If a new line must be present, quoting can be used via the `"` character.
+```
+"new
+line"
+```
+
+If the `"` character needs to be part of the spam string, it can be escaped via the `\` character:
+```
+"contains \""
+```
+
 # C++ Code Generation
 As Google's FHE library (and supposedly TFHE) has a limitation that doesn't allow dynamic arrays,
 we need to provide the spam strings at compile time. We do that by generating C++ code via Python.
