@@ -1,2 +1,2 @@
-# fhe-mail-spam-detection
+# fhe-is-mail-spam
 Fully homomorphic encryption based mail spam detection
