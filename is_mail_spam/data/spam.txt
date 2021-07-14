@@ -1,0 +1,8 @@
+evil.url1
+evil.url2
+evil.url3
+"new
+line"
+"quote \""
+"new
+line q\""

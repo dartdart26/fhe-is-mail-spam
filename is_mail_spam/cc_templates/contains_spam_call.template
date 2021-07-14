@@ -1,0 +1,4 @@
+      if (containsSpam$ID$(mail, i)) {
+          contains = true;
+          break;
+      }

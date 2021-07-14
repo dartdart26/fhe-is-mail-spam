@@ -1,0 +1,14 @@
+static inline bool containsSpam$ID$(char mail[kMaxMailSize], unsigned offset) {
+  static constexpr auto kSpamSize = $SPAM_SIZE$;
+  const char spam_str[kSpamSize] = "$SPAM_STR$";
+  auto contains = true;
+
+  #pragma hls_unroll yes
+  for (auto i = 0u; i < kSpamSize - 1; ++i) {
+    if (offset + i >= kMaxMailSize - 1 || mail[offset + i] != spam_str[i]) {
+      contains = false;
+      break;
+    }
+  }
+  return contains;
+}
