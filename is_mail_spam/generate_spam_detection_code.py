@@ -29,7 +29,7 @@ class MaxMailSizeAction(argparse.Action):
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("-m", "--max-mail-size", type=int, default=24, action=MaxMailSizeAction,
                     help="maximum mail size in bytes")
-parser.add_argument("-t", "--template-path", type=str, default="./cc_templates/",
+parser.add_argument("-t", "--template-path", type=str, default="./cpp_templates/",
                     help="path to C++ code templates")
 parser.add_argument("-s", "--spam", type=str, default="./data/spam.txt",
                     help="a CSV file containing spam strings (one per line)")

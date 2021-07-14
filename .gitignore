@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Generated code
+is_mail_spam/is_mail_spam.cc
+is_mail_spam/is_mail_spam.h
