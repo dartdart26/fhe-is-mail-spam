@@ -9,13 +9,40 @@ of the email message. If that is the case, we report spam. Otherwise, the messag
 good and it is not spam.
 
 Works via Google FHE: https://github.com/google/fully-homomorphic-encryption.
-It is based on the TFHE library: https://tfhe.github.io/tfhe/
+Google FHE is based on the TFHE library: https://tfhe.github.io/tfhe/.
 
 I got the idea from Vitalik Buterin's post on FHE:
 https://vitalik.ca/general/2020/07/20/homomorphic.html
 
 This example is a topic of a playlist on my YouTube channel:
 https://www.youtube.com/playlist?list=PLNEYVOFMCyfMGBz31YjrYKtuYXtceSCeg
+
+# C++ Code Generation
+As Google's FHE library (and supposedly TFHE) has a limitation that doesn't allow dynamic arrays,
+we need to provide the spam strings at compile time. We do that by generating C++ code via Python.
+We have a number of C++ code templates that we just replace code in based on configuration and spam
+input. Then we pass the generated code to Google's FHE library and it compiles it to FHE code. That
+way we achieve "dynamic" array support.
+
+The resulting pipeline is shown below:
+
+![pipeline](img/spam_codegen.svg)
+
+# Spam Strings
+Spam strings are strings that we look for in emails. If an email contains one of them, the email is
+classified as spam. The [spam.txt](is_mail_spam/data/spam.txt) file contains one entry per line. The
+new line character is `\n`.
+
+If a new line must be present, quoting can be used via the `"` character.
+```
+"new
+line"
+```
+
+If the `"` character needs to be part of the spam string, it can be escaped via the `\` character:
+```
+"contains \""
+```
 
 # Usage
 1. Install and compile Google's FHE library by following its README file.
@@ -41,29 +68,6 @@ bazelisk run //transpiler/examples/is_mail_spam:is_mail_spam_interpreted_tfhe_te
 [Client] Decrypted result: 1
 [Client] Mail is spam!
 ```
-
-# Spam Strings
-Spam strings are strings that we look for in emails. If an email contains one of them, the email is
-classified as spam. The [spam.txt](is_mail_spam/data/spam.txt) file contains one entry per line. The
-new line character is `\n`.
-
-If a new line must be present, quoting can be used via the `"` character.
-```
-"new
-line"
-```
-
-If the `"` character needs to be part of the spam string, it can be escaped via the `\` character:
-```
-"contains \""
-```
-
-# C++ Code Generation
-As Google's FHE library (and supposedly TFHE) has a limitation that doesn't allow dynamic arrays,
-we need to provide the spam strings at compile time. We do that by generating C++ code via Python.
-We have a number of C++ code templates that we just replace code in based on configuration and spam
-input. Then we pass the generated code to Google's FHE library and it compiles it to FHE code. That
-way we achieve "dynamic" array support.
 
 # TODO
  - Implement and actual client and a server. Use HTTP with JSON-RPC.
